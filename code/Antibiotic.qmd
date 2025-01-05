@@ -1,7 +1,6 @@
 ---
 title: ANTIMICROBIAL RESISTANCE IN AFRICA
 subtitle: "Challenges and Opportunities for Mitigation"
-author: Joseph Adegoke
 format:
   closeread-html:
     css: antibiotic.css

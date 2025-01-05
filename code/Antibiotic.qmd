@@ -1,0 +1,595 @@
+---
+title: ANTIMICROBIAL RESISTANCE IN AFRICA
+subtitle: "Challenges and Opportunities for Mitigation"
+author: Joseph Adegoke
+format:
+  closeread-html:
+    css: antibiotic.css
+---
+:::::{.cr-section}
+
+@cr-face_off **Antimicrobial resistance (AMR)** has been acknowledged as one of the top ten public health threats facing humanity. It is a complex and multidimensional problem, threatening not only human and animal health, but also regional, national, and global security, and the economy. O'Neil's 2014 report projected that AMR will cause 10 million deaths annually by 2050 and will result in between 2% to 3.5% less in gross domestic product (GDP), if not adequately and urgently addressed.
+
+
+::: {#cr-face_off}
+![https://www.natren.com/blogs/news/antibiotics-resistance-in-the-news](face-off.png)
+:::
+
+# Understanding Antimicrobial Resistance
+
+[@cr-AMR]{scale-by=".7"} **Antimicrobial Resistance (AMR)** occurs when bacteria, viruses, fungi and parasites no longer respond to antimicrobial medicines [WHO](https://www.who.int/news-room/fact-sheets/detail/antimicrobial-resistance).
+
+::: {#cr-AMR}
+![https://microbe-safari.org.uk/foodborne-pathogens/antimicrobial-resistance/](AMR_develops.png)
+:::
+
+::: {#cr-P1}
+![Credit: A hospital in Benin © Godong/Alamy](war.jpeg)
+:::
+
+
+[@cr-AMR]{scale-by=".7"} As a result of drug resistance, antibiotics and other antimicrobial medicines become ineffective and infections become difficult or impossible to treat, increasing the risk of disease spread, severe illness, disability and death.
+
+[@cr-AMR]{scale-by=".7"} AMR is a natural process that happens over time through genetic changes in pathogens. Its emergence and spread is accelerated by human activity, mainly the misuse and overuse of antimicrobials to treat, prevent or control infections in humans, animals and plants.
+
+
+
+# Global Concern
+
+@cr-global The report by the Global Research on Antimicrobial Resistance (GRAM) project estimated that 4.95 million deaths were associated globally with bacterial resistance in 2019 and, of these, 1.27 million deaths were directly attributable to resistance [Christopher *et al*., 2022](https://pubmed.ncbi.nlm.nih.gov/35065702/). The consequences of AMR are more calamitous in low to middle-income countries (LMICs) and their development agenda due to the occurrence of more prevalent infectious diseases.
+
+:::{#cr-global}
+![bioMérieux publication 2023; Mitigating Global Disparities in the Fight Against Antimicrobial Resistance](global.jpeg)
+:::
+:::{#cr-world}
+![Rwanda Pharmaceutical Students Association (**RPSA**)](AMR_worldwide.jpg)
+:::
+
+
+[@cr-world]{scale-by="1"} The rise and proliferation of drug-resistant bacteria jeopardises our capacity to treat prevalent illnesses and to conduct life-saving interventions such as cancer treatment, caesarean sections, hip replacements, organ transplants, and several other surgical procedures.
+
+
+
+[@cr-bulb]{scale-by="1.2"}
+
+# Regional Concern
+
+[@cr-bulb]{scale-by="1.2"}
+
+:::{#cr-bulb}
+![](light_bulb.jpg)
+:::
+
+
+[@cr-P1]{scale-by="1"} A UK financial time outlet states **Antibiotic resistance in Africa: ‘a pandemic that is already here’** [click here](https://www-ft-com.ezp-prod1.hul.harvard.edu/content/95f150df-5ce6-43cf-aa8d-01ac3bdcf0ef)
+
+**In Africa**, @cr-anti
+
+:::{#cr-anti}
+| Antimicrobial resistance (AMR) is a major problem in the African region in the year 2019.
+| More than a million fatalities were associated with AMR, with an additional 250,000 being directly caused by it.
+| Infections of the lungs and chest, the bloodstream, the abdomen, 
+| and tuberculosis were the leading causes of death in this group of patients [Satoris *et al.*, 2023](https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(23)00539-9/fulltext).
+:::
+
+
+
+Most of these fatalities were caused by four specific bacteria **Streptococcus pneumoniae**, **Klebsiella pneumoniae**, **Escherichia coli**, and **Staphylococcus aureus**accounted for more than 100,000 deaths each [Satoris *et al.*, 2023](https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(23)00539-9/fulltext).
+
+
+@cr-map Examining a glimpse of Antimicrobial resistance trends in Africa using the ATLAS dataset ([Pfizer-Antimicrobial Testing Leadership and Surveillance](https://www.atlas-surveillance.com/#/login)). 
+
+@cr-map Due to limits attributed to various countries, only a small amount of data is submitted, and the data does not accurately represent the region (just 13 African countries are participating).
+
+:::{#cr-library}
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(leaflet)
+library(sf)
+library(ggplot2)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(readr)
+library(readxl)
+library(ggrepel)
+library(tidyverse)
+library(highcharter)
+
+data <- read_csv("atlas_2024.csv")
+# Load the dataset
+glass <- read_excel("glass-enrolled-countries-8nov-2022 (1).xlsx")
+
+```
+:::
+
+:::{#cr-map}
+```{r}
+data <- data %>%
+  mutate(Continents = if_else(Country %in% c("France", "Spain", "Belgium", "Italy", "Germany", 
+                                             "Ireland", "Portugal", "Greece", "United Kingdom", 
+                                             "Poland", "Switzerland", "Hungary", "Austria", 
+                                             "Finland", "Denmark", "Sweden", "Croatia", 
+                                             "Czech Republic", "Netherlands", "Russia", 
+                                             "Romania", "Latvia", "Lithuania", "Serbia", 
+                                             "Ukraine", "Slovenia", "Bulgaria", "Norway", 
+                                             "Slovak Republic", "Estonia"), "Europe",
+                              if_else(Country %in% c("Canada", "United States", "Mexico", 
+                                                     "Guatemala", "Dominican Republic", "Costa Rica", 
+                                                     "Jamaica", "Honduras", "Puerto Rico", 
+                                                     "Nicaragua", "Panama","El Salvador"), "North America",
+                                      if_else(Country %in% c("Colombia", "Chile", "Venezuela", "Argentina", 
+                                                             "Brazil"), "South America",
+                                              if_else(Country %in% c("Australia", "New Zealand"), "Australia",
+                                                      if_else(Country %in% c("China", "Hong Kong", "Japan", "Malaysia", 
+                                                                             "Thailand", "Philippines", "Korea, South", 
+                                                                             "Taiwan", "India", "Singapore", "Vietnam", 
+                                                                             "Indonesia"), "Asia",
+                                                              if_else(Country %in% c("Nigeria", "Kenya", "South Africa", 
+                                                                                     "Ivory Coast", "Morocco", "Cameroon", 
+                                                                                     "Malawi", "Uganda", "Ghana", "Namibia", 
+                                                                                     "Mauritius", "Tunisia", "Egypt"), "Africa",
+                                                                      if_else(Country %in% c("Israel", "Kuwait", "Turkey", "Jordan", 
+                                                                                             "Saudi Arabia", "Pakistan", "Lebanon", 
+                                                                                             "Qatar", "Oman"), "Middle East", 
+                                                                              NA_character_))))))))
+
+data <- data %>% filter(Continents == "Africa")
+
+pathogens <- c(
+  "Enterococcus faecium",
+  "Staphylococcus aureus",
+  "Klebsiella pneumoniae",
+  "Acinetobacter baumannii",
+  "Pseudomonas aeruginosa",
+  "Enterobacter cloacae",
+  "Escherichia coli",
+  "Streptococcus pneumoniae",
+  "Haemophilus influenzae",
+  "Neisseria gonorrhoeae"
+)
+
+# Filter African data for specific pathogens and save
+data <- data %>% filter(Species %in% pathogens)
+
+Countries_con <- data %>%
+  group_by(`Isolate Id`, Year, Country, Species) %>%
+  summarise(Count = n(), .groups = "drop")
+
+Countries_con <- Countries_con %>%
+  group_by(Country) %>%
+  summarise(Count = n(), .groups = "drop")
+
+country_geocodes <- data.frame(
+  Country = c("Cameroon", "Egypt", "Ghana", "Ivory Coast", "Kenya", "Malawi",
+              "Mauritius", "Morocco", "Namibia", "Nigeria", "South Africa",
+              "Tunisia", "Uganda"),
+  Latitude = c(7.3697, 26.8206, 7.9465, 7.5399, -1.2864, -13.2543,
+               -20.3484, 31.7917, -22.9576, 9.0820, -30.5595, 33.8869, 1.3733),
+  Longitude = c(12.3547, 30.8025, -1.0232, -5.5471, 36.8219, 34.3015,
+                57.5522, -7.0926, 18.4904, 8.6753, 22.9375, 9.5375, 32.2903)
+)
+
+# Merge with your dataset
+data_with_geocodes <- merge(Countries_con, country_geocodes, by = "Country")
+
+# Download Africa map data
+africa <- ne_countries(scale = "medium", continent = "Africa", returnclass = "sf")
+
+# Create the map
+ggplot() +
+  # Add Africa map
+  geom_sf(data = africa, fill = "gray90", color = "black", size = 0.3) +
+  # Add country points sized by count
+  geom_point(data = data_with_geocodes, 
+             aes(x = Longitude, y = Latitude, size = Count, color = Count), 
+             alpha = 0.8) +
+  # Add country labels, colored by Count
+  geom_text_repel(data = data_with_geocodes, 
+                  aes(x = Longitude, y = Latitude, label = Country, color = Count),
+                  size = 3, fontface = "bold") +
+  # Scale for count
+  scale_color_gradientn(colors = c("#313695", "#4575b4", "#74add1", "#abd9e9", 
+                                   "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"), 
+                        name = "Contribution") +
+  scale_size_continuous(range = c(3, 10), name = "Contribution") +
+  # Theme and titles
+  theme_minimal() +
+  theme(
+    text = element_text(size = 12, color = "#333333"),
+    panel.grid = element_blank(),
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5)
+  ) +
+  labs(
+    title = "African Countries in the ATLAS Surveillance",
+    subtitle = "Volume of contributions to the data",
+    caption = "Data Source: Pfizer-ATLAS"
+  )
+```
+:::
+
+
+
+:::{#cr-species}
+```{r}
+#Species trend by year----
+species_trend <- data %>%
+  group_by(`Isolate Id`, Year, Species) %>%
+  summarise(Count = n(), .groups = "drop")
+
+species_trend <- species_trend %>%
+  group_by(Year, Species) %>%
+  summarise(Count = n(), .groups = "drop")
+
+unique_species <- unique(species_trend$Species)
+
+species_colors <- c(
+  "#000000", # House Stark (Black Direwolf)
+  "#FFD700", # House Lannister (Gold Lion)
+  "#800000", # House Targaryen (Red Dragon)
+  "#003366", # House Baratheon (Navy Blue with Stag)
+  "#4B5320", # House Tyrell (Olive Green Rose)
+  "#708090", # House Greyjoy (Slate Grey Kraken)
+  "#DAA520", # House Martell (Golden Spear and Sun)
+  "#8B4513", # House Tully (Brown/Brindle Trout)
+  "#2E8B57", # House Arryn (Sea Green Falcon)
+  "#B22222"  # The Wall (Firebrick Red for the Night's Watch)
+)
+
+# Generate the chart with your custom settings
+highchart() %>%
+  hc_chart(type = "line") %>%
+  hc_title(
+    text = "Species Trend Over Years",
+    margin = 20,
+    align = "left",
+    style = list(color = "steelblue")
+  ) %>%
+  hc_subtitle(
+    text = "Yearly Trends of Different Species",
+    align = "left",
+    style = list(color = "#2b908f", fontWeight = "bold")
+  ) %>%
+  hc_xAxis(categories = unique(species_trend$Year), title = list(text = "Year")) %>%
+  hc_yAxis(title = list(text = "Count")) %>%
+  hc_legend(
+    align = "left",
+    verticalAlign = "top",
+    layout = "vertical",
+    x = 0,
+    y = 100
+  ) %>%
+  hc_tooltip(
+    crosshairs = TRUE,
+    backgroundColor = "#FCFFC5",
+    shared = TRUE,
+    borderWidth = 4
+  ) %>%
+  hc_credits(
+    enabled = TRUE,
+    text = "Species Data",
+    href = "http://example.com"
+  ) %>%
+  hc_add_series_list(
+    lapply(seq_along(unique_species), function(i) {
+      current_species <- unique_species[i]
+      list(
+        name = current_species,
+        data = species_trend %>%
+          filter(Species == current_species) %>%
+          arrange(Year) %>%
+          pull(Count),
+        color = species_colors[i] # Assign Game of Thrones-inspired color
+      )
+    })
+  )
+
+
+
+```
+:::
+
+:::{#cr-eskape}
+```{r}
+
+unique_species <- unique(species_trend$Species)
+
+# Ensure there are enough colors for all species
+if (length(species_colors) < length(unique_species)) {
+  stop("Not enough colors specified for all species")
+}
+
+# Create a list to store the individual species charts
+species_charts <- list()
+
+# Iterate over each species to generate individual charts
+for (i in seq_along(unique_species)) {
+  current_species <- unique_species[i]
+  current_color <- species_colors[i]
+  
+  chart <- highchart() %>%
+    hc_chart(type = "line") %>%
+    hc_title(
+      text = paste("Trend for", current_species),
+      margin = 20,
+      align = "left",
+      style = list(color = "steelblue")
+    ) %>%
+    hc_subtitle(
+      text = paste("Yearly Trend of", current_species),
+      align = "left",
+      style = list(color = "#2b908f", fontWeight = "bold")
+    ) %>%
+    hc_xAxis(categories = unique(species_trend$Year), title = list(text = "Year")) %>%
+    hc_yAxis(title = list(text = "Count")) %>%
+    hc_legend(enabled = FALSE) %>% # Disable legend for individual charts
+    hc_tooltip(
+      crosshairs = TRUE,
+      backgroundColor = "#FCFFC5",
+      shared = TRUE,
+      borderWidth = 4
+    ) %>%
+    hc_credits(
+      enabled = TRUE,
+      text = paste("Species Data: ", current_species),
+      href = "http://example.com"
+    ) %>%
+    hc_add_series(
+      name = current_species,
+      data = species_trend %>%
+        filter(Species == current_species) %>%
+        arrange(Year) %>%
+        pull(Count),
+      color = current_color
+    )
+  
+  # Store the chart in the list
+  species_charts[[current_species]] <- chart
+}
+
+```
+:::
+
+:::{#cr-staph}
+```{r}
+species_charts[[unique_species[1]]]
+```
+:::
+
+:::{#cr-Enterobacter}
+```{r}
+species_charts[[unique_species[4]]]
+```
+:::
+
+:::{#cr-kleb}
+```{r}
+species_charts[[unique_species[8]]]
+```
+:::
+
+
+:::{#cr-Ecoli}
+```{r}
+species_charts[[unique_species[6]]]
+```
+:::
+
+:::{#cr-Pseudo}
+```{r}
+species_charts[[unique_species[9]]]
+```
+:::
+
+:::{#cr-baumanii}
+```{r}
+species_charts[[unique_species[3]]]
+```
+:::
+
+# Focus on the ESKAPE
+
+@cr-species **ESKAPE** is the WHO adopted acronyms for the **six** priority organisms in Africa, and they are **Escherichia coli**, **Staphyloccus aureus**, **Klebsiella pneumoniae**, **Actinobacter baumanii**, **Pseudomonas auregenosa**, **Enterobacter species** 
+
+@cr-Ecoli **Escherichia coli** The majority of E. coli strains are benign; nonetheless, pathogenic variants can lead to severe foodborne illness, septic shock, meningitis, or urinary tract infections in humans.In contrast to non-pathogenic E. coli, pathogenic strains generate toxins and several virulence factors that allow them to occupy areas of the body often unoccupied by E. coli, thereby inflicting damage on host cells. These harmful characteristics are encoded by virulence genes exclusively possessed by the pathogens.
+
+@cr-staph **Staphyloccus aureus**  has long been acknowledged as one of the most significant pathogenic bacteria in humans. It is the primary cause of skin and soft tissue infections, including abscesses, furuncles, and cellulitis. While the majority of staphylococcal infections are benign, S. aureus has the potential to induce severe conditions, including bloodstream infections, pneumonia, and infections of the bones and joints.
+
+@cr-kleb **Klebsiella pneumoniae** is a gram-negative bacterium that can cause severe infections, particularly in individuals with weakened immune systems. Common infections include pneumonia, urinary tract infections, bloodstream infections (sepsis), and liver abscesses. Associated with hospital-acquired infections, often linked to invasive devices like ventilators or catheters. It is also rampant in the cause of death of neonates(0-2 months old).[Jenifer *et al*., 2024](https://pubmed.ncbi.nlm.nih.gov/38218193/)
+
+@cr-baumanii **Acinetobacter baumannii** is a gram-negative, opportunistic pathogen that is responsible for severe healthcare-associated infections, such as ventilator-associated pneumonia, bloodstream infections, wound infections, and meningitis. Its pathogenicity is ascribed to its capacity to form biofilms, and produce toxins. It thrives in hospital settings, which presents a challenge to the treatment and management of infections. 
+
+@cr-baumanii The burden of *A. baumannii* is substantial in Africa, particularly in intensive care units (ICUs). According to a systematic review, *A. baumannii* is responsible for approximately 3.6% of all hospital infections in Africa, with multiple drug resistance rates spanning from 77% to 87%. The prevalence of carbapenem-resistant *A. baumannii* is estimated to be 20% in sub-Saharan Africa[Nicholas *et al*., 2023](https://www.frontiersin.org/journals/tropical-diseases/articles/10.3389/fitd.2023.1110125/).
+
+@cr-Enterobacter **Enterobacter species** are opportunistic bacteria that are particularly prevalent in hospital environments and can cause a variety of infections, including urinary tract infections, pneumonia, bloodstream infections, and surgical site infections. They are resistant to antibiotics due to their ability to produce extended-spectrum beta-lactamases (ESBLs) and form biofilms.
+
+@cr-Enterobacter *Enterobacter* species are becoming increasingly problematic in Africa as a result of elevated levels of antimicrobial resistance (AMR). A review revealed that AMR in *Enterobacterales* is prevalent in sub-Saharan Africa, which contributes to sepsis and increased mortality. [Kowalski *et al*., 2024](https://pubmed.ncbi.nlm.nih.gov/38495519/) 
+
+@cr-Pseudo **Pseudomonas aeruginosa** is an opportunistic pathogen associated with a range of infections, especially in immunocompromised individuals. The pathogenicity is due to various virulence factors, such as biofilm formation, elastase production, and toxin secretion that harm host tissues. P. aeruginosa is associated with a range of infections, such as dermatitis, soft tissue infections, bone and joint infections, urinary tract infections, gastrointestinal infections, respiratory infections, and systemic infections. 
+
+@cr-Pseudo Research in Africa has emphasised the genetic diversity and antibiotic resistance of P. aeruginosa strains. Research conducted in Kenya has documented the distribution and genomic characteristics of clinical P. aeruginosa strains, highlighting the challenges associated with treating infections caused by this bacterium [Kiyaga *et al*., 2022](https://pubmed.ncbi.nlm.nih.gov/35369511/) 
+
+
+
+[@cr-P2]{scale-by=".7"}
+
+# Drivers of Antibiotic Resistance?
+
+[@cr-P2]{scale-by=".7"} [Anuradha *et al.,* 2024](https://doi.org/10.1016/j.meegid.2024.105666)
+
+[@cr-P2]{pan-to="76%, 50%" scale-by="2"} **Inappropriate use of antibiotics** Misusing antibiotics for viral infections, skipping prescriptions, or incomplete courses fuels resistance.
+
+[@cr-P2]{pan-to="10%, 30%" scale-by="2"} **Gut Dysbiosis** Altered gut microbiota enables the dominance of antimicrobial-resistant bacteria.
+
+[@cr-P2]{pan-to="80%, -0%" scale-by="2"} **One Health Factors** Interactions between humans, animals, and the environment amplify resistance spread.
+
+[@cr-P2]{pan-to="-45%, 35%" scale-by="2"} **Climate Change** Rising sea levels, flooding, and temperature shifts increase infection burdens and migration.
+
+[@cr-P2]{pan-to="-85%, -25%" scale-by="2"} **Human Mobility** Population movement accelerates the global spread of resistant pathogens.
+
+[@cr-P2]{pan-to="-85%, -25" scale-by="2"} **Improper Waste Management** Landfills and untreated sewage release resistant bacteria into the environment.
+
+[@cr-P2]{pan-to="16%, -25%" scale-by="2"} **Transmission and Spread of AMR** Poor control of infections allows resistant pathogens to proliferate.
+
+
+:::{#cr-P2}
+![Anuradha *et al*., 2024](drivers.jpg)
+:::
+
+:::{#cr-challenge}
+![Bashar *et al*., 2022](challenge.png)
+:::
+
+@cr-challenge **Questionable Quality Assurance**
+Many African countries face challenges with regulating the quality of medicines. Substandard and counterfeit drugs, including antibiotics, are prevalent due to weak pharmaceutical oversight, leading to ineffective treatment and resistance development.
+
+@cr-challenge **Weak Laboratory Infrastructure**
+Limited laboratory facilities, outdated equipment, and a lack of diagnostic tools impede effective detection and monitoring of AMR. Many rural and underserved areas have no access to diagnostic services, making data collection and treatment monitoring difficult.
+
+
+@cr-challenge **Limited Staff and Training Capacity**
+Africa faces a critical shortage of healthcare professionals trained in AMR-related areas. Medical personnel, microbiologists, and laboratory technicians often lack the expertise needed to detect and respond effectively to resistance patterns.
+
+
+@cr-challenge **Communication Issues**
+There are significant gaps in communication between governments, healthcare providers, and the public. This leads to poor coordination in AMR interventions and limited awareness campaigns to educate communities about the dangers of improper antibiotic use.
+
+@cr-challenge **Limited Availability of Consumables, Diagnostics, and Reagents**
+Essential supplies such as diagnostic kits, reagents, and microbial culture media are either expensive or unavailable. This shortage hampers the ability of health systems to diagnose infections and track AMR trends accurately.
+
+@cr-challenge **Reliance on External Funding**
+Many African nations rely heavily on donor funding to finance AMR surveillance, research, and intervention programs. This dependence creates gaps when external funding is withdrawn, limiting the sustainability of these efforts.
+
+@cr-challenge **Data Gaps** Reliable data on AMR trends are often limited due to inconsistent or incomplete reporting.
+:::::
+
+
+::::{.cr-section}
+# Combating AMR surge
+
+
+
+:::{#cr-P3}
+![](P4.png)
+:::
+
+
+:::{#cr-P4}
+![](P1.jpg)
+:::
+
+
+:::{#cr-P5}
+![**WHO**](P6.png)
+:::
+
+
+@cr-P7 In response to the threat of AMR in the context of the One Health approach, in 2015 the World Health Organization (WHO) endorsed a Global Action Plan (GAP) on AMR that serves as a blueprint for country-specific National Action Plans (NAPs). One of the objectives highlighted in both the GAP and country NAPs is the need to improve awareness and understanding of antimicrobial resistance through effective communication, education, and training, the umbrella for the other four strategic objectives.
+
+:::{#cr-P7}
+![https://www.slideshare.net/slideshow/global-and-national-action-plan-on-antimicrobial-resistance/257948004](GAP.png)
+:::
+
+[@cr-connect]{scale-by="1.5"} **ReAct**, established in 2005, is a global network combating antibiotic resistance through advocacy, collaboration, and policy influence. Operating via a multidisciplinary team across four continents, it focuses on governance, One Health, innovation, and equitable access to antibiotics, emphasizing community mobilization, health coverage, and poverty reduction, with funding from partners.
+
+
+
+:::{#cr-connect}
+![](connect.png)
+:::
+
+:::{#cr-glass}
+```{r}
+
+
+# Filter for African countries and GLASS participation status
+africa_glass <- glass %>%
+  filter(`WHO Region` == "African Region") %>%
+  mutate(Participation = ifelse(AMR == "Y", "Participating", "Not Participating")) %>%
+  select(Label, Participation)
+
+# Load a shapefile of Africa for mapping
+africa_map <- ne_countries(scale = "medium", continent = "Africa", returnclass = "sf")
+
+# Merge participation data with the map
+africa_merged <- africa_map %>%
+  left_join(africa_glass, by = c("admin" = "Label"))
+
+# Calculate percentage of participating countries
+total_countries <- nrow(africa_merged)
+participating_countries <- nrow(africa_merged %>% filter(Participation == "Participating"))
+participation_percentage <- round((participating_countries / total_countries) * 100, 2)
+
+# Plot the map
+ggplot(data = africa_merged) +
+  geom_sf(aes(fill = Participation), color = "black") +
+  scale_fill_manual(
+    values = c("Participating" = "green", "Not Participating" = "red"),
+    na.value = "gray"
+  ) +
+  labs(
+    title = "African Countries in GLASS",
+    subtitle = paste0(
+      participating_countries, " out of ", total_countries, 
+      " countries participating (", participation_percentage, "%)"
+    ),
+    fill = "Participation Status",
+    caption = "Source: GLASS-data(2022)" # Add your data source link here
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(), # Remove latitude and longitude labels
+    axis.title = element_blank() # Remove axis titles
+  )
+```
+:::
+
+@cr-glass **The Global Antimicrobial Resistance and Use Surveillance System (GLASS)**, led by WHO, helps African countries monitor AMR trends, strengthen labs, and guide policies using standardized data. Despite challenges, nations like South Africa and Kenya lead efforts, fostering collaboration, enhancing stewardship, and contributing to global strategies against antimicrobial resistance. 
+
+@cr-P3 **WORLD ANTIMICROBIAL AWARENESS WEEK (WAAW)**
+
+@cr-P3 As a result of the rise in resistant bacteria, viruses, fungi, and parasites, there is increasing worldwide concern about the abuse and overuse of antimicrobials. Consequently, there is a week set aside each year to educate the public on the dangers of overusing antibiotics.
+
+@cr-P5 The idea for a dedicated awareness week was championed by the World Health Organization (WHO) and its partners as part of a larger global action plan to combat antimicrobial resistance. 
+
+@cr-P5 WAAW was first launched in 2015 following the adoption of the Global Action Plan on Antimicrobial Resistance by the WHO Member States at the World Health Assembly in May of the same year. The initiative marked a significant milestone in global health, recognizing that coordinated action across countries and sectors was essential to address this pressing challenge.
+
+::::
+
+:::::{.cr-section}
+
+@cr-educate Countries across Africa participated in last year's **WAAW** 
+
+@cr-kenya Awareness in Kenya 
+
+:::{#cr-kenya}
+![@MOH_Kenya on **X**](kenya.jpeg)
+:::
+
+@cr-Ghana Awareness in Ghana
+
+:::{#cr-Ghana}
+![AMR_WACCBIP on **X**](Ghana.jpeg)
+:::
+
+@cr-Rwanda Awareness in Rwanda
+
+:::{#cr-Rwanda}
+![Vennue Foundation, Rwanda](Rwanda.jpeg)
+:::
+
+:::{#cr-educate}
+![**communitymedicine4all**](educate.jpg)
+:::
+
+[@cr-close]{scale-by="2.5"} **To combat the rampage of antimicrobial resistance effectively, it takes all of us to play our individual part.**
+
+:::{#cr-close}
+![**SHEA**)](close.png)
+:::
+:::::

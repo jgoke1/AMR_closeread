@@ -1,0 +1,19 @@
+/* Move image to the top */
+/* Move image to the top */
+.cr-section img {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh; /* Ensure the image doesn't exceed 80% of the viewport height */
+  margin: auto;
+  position: sticky; /* Keep the image sticky during scrolling */
+  top: 0; /* Align the image to the top of the viewport */
+  transform: none; /* Reset any centering transformation */
+}
+
+.cr-section {
+  text-align: justify;
+  background-color: white;
+  font-family: 'Open sans' Sans-Serif;
+}
+
+ 

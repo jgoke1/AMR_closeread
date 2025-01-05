@@ -394,7 +394,7 @@ species_charts[[unique_species[3]]]
 
 # Focus on the ESKAPE
 
-@cr-species **ESKAPE** is the WHO adopted acronyms for the **six** priority organisms in Africa, and they are **Escherichia coli**, **Staphyloccus aureus**, **Klebsiella pneumoniae**, **Actinobacter baumanii**, **Pseudomonas auregenosa**, **Enterobacter species** 
+@cr-species **ESKAPE** is the WHO adopted acronyms for the **six** priority pathogens in Africa, and they are **Escherichia coli**, **Staphyloccus aureus**, **Klebsiella pneumoniae**, **Actinobacter baumanii**, **Pseudomonas auregenosa**, **Enterobacter species** 
 
 @cr-Ecoli **Escherichia coli** The majority of E. coli strains are benign; nonetheless, pathogenic variants can lead to severe foodborne illness, septic shock, meningitis, or urinary tract infections in humans.In contrast to non-pathogenic E. coli, pathogenic strains generate toxins and several virulence factors that allow them to occupy areas of the body often unoccupied by E. coli, thereby inflicting damage on host cells. These harmful characteristics are encoded by virulence genes exclusively possessed by the pathogens.
 
@@ -404,15 +404,15 @@ species_charts[[unique_species[3]]]
 
 @cr-baumanii **Acinetobacter baumannii** is a gram-negative, opportunistic pathogen that is responsible for severe healthcare-associated infections, such as ventilator-associated pneumonia, bloodstream infections, wound infections, and meningitis. Its pathogenicity is ascribed to its capacity to form biofilms, and produce toxins. It thrives in hospital settings, which presents a challenge to the treatment and management of infections. 
 
-@cr-baumanii The burden of *A. baumannii* is substantial in Africa, particularly in intensive care units (ICUs). According to a systematic review, *A. baumannii* is responsible for approximately 3.6% of all hospital infections in Africa, with multiple drug resistance rates spanning from 77% to 87%. The prevalence of carbapenem-resistant *A. baumannii* is estimated to be 20% in sub-Saharan Africa[Nicholas *et al*., 2023](https://www.frontiersin.org/journals/tropical-diseases/articles/10.3389/fitd.2023.1110125/).
+@cr-baumanii The burden of *A. baumannii* is substantial in Africa, particularly in intensive care units (ICUs). According to a systematic review, *A. baumannii* is responsible for approximately 3.6% of all hospital infections in Africa, with multiple drug resistance rates spanning from 77% to 87%. The prevalence of carbapenem-resistant *A. baumannii* is estimated to be 20% in sub-Saharan Africa [Nicholas *et al*., 2023](https://www.frontiersin.org/journals/tropical-diseases/articles/10.3389/fitd.2023.1110125/).
 
 @cr-Enterobacter **Enterobacter species** are opportunistic bacteria that are particularly prevalent in hospital environments and can cause a variety of infections, including urinary tract infections, pneumonia, bloodstream infections, and surgical site infections. They are resistant to antibiotics due to their ability to produce extended-spectrum beta-lactamases (ESBLs) and form biofilms.
 
-@cr-Enterobacter *Enterobacter* species are becoming increasingly problematic in Africa as a result of elevated levels of antimicrobial resistance (AMR). A review revealed that AMR in *Enterobacterales* is prevalent in sub-Saharan Africa, which contributes to sepsis and increased mortality. [Kowalski *et al*., 2024](https://pubmed.ncbi.nlm.nih.gov/38495519/) 
+@cr-Enterobacter *Enterobacter* species are becoming increasingly problematic in Africa as a result of elevated levels of antimicrobial resistance (AMR). A review revealed that AMR in *Enterobacterales* is prevalent in sub-Saharan Africa, which contributes to sepsis and increased mortality [Kowalski *et al*., 2024](https://pubmed.ncbi.nlm.nih.gov/38495519/). 
 
 @cr-Pseudo **Pseudomonas aeruginosa** is an opportunistic pathogen associated with a range of infections, especially in immunocompromised individuals. The pathogenicity is due to various virulence factors, such as biofilm formation, elastase production, and toxin secretion that harm host tissues. P. aeruginosa is associated with a range of infections, such as dermatitis, soft tissue infections, bone and joint infections, urinary tract infections, gastrointestinal infections, respiratory infections, and systemic infections. 
 
-@cr-Pseudo Research in Africa has emphasised the genetic diversity and antibiotic resistance of P. aeruginosa strains. Research conducted in Kenya has documented the distribution and genomic characteristics of clinical P. aeruginosa strains, highlighting the challenges associated with treating infections caused by this bacterium [Kiyaga *et al*., 2022](https://pubmed.ncbi.nlm.nih.gov/35369511/) 
+@cr-Pseudo Research in Africa has emphasised the genetic diversity and antibiotic resistance of P. aeruginosa strains. Research conducted in Kenya has documented the distribution and genomic characteristics of clinical P. aeruginosa strains, highlighting the challenges associated with treating infections caused by this bacterium [Kiyaga *et al*., 2022](https://pubmed.ncbi.nlm.nih.gov/35369511/). 
 
 
 
@@ -476,11 +476,6 @@ Many African nations rely heavily on donor funding to finance AMR surveillance, 
 
 :::{#cr-P3}
 ![](P4.png)
-:::
-
-
-:::{#cr-P4}
-![](P1.jpg)
 :::
 
 
